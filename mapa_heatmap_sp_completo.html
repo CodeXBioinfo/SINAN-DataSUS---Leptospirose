@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_133584918f435e4d1ea082c695b1e493 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+            bottom: 50px; right: 50px; 
+            width: 300px; 
+            background-color: white; 
+            border: 3px solid #1F4E78; 
+            z-index: 9999; 
+            padding: 15px; 
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            font-family: Arial;">
+    
+    <h3 style="color: #1F4E78; margin: 0 0 12px 0; text-align: center;">
+        HEATMAP INTERATIVO
+    </h3>
+    
+    <p style="margin: 5px 0; text-align: center; font-weight: bold; font-size: 13px;">
+        Leptospirose em SP Capital
+    </p>
+    
+    <hr style="margin: 10px 0; border: none; border-top: 2px solid #1F4E78;">
+    
+    <p style="margin: 8px 0; font-size: 11px;"><b>Cores do Heatmap:</b></p>
+    <div style="height: 20px; background: linear-gradient(to right, #fff7bc, #fee391, #fec44f, #fe9929, #d95f0e); 
+                border: 1px solid #999; border-radius: 3px; margin: 5px 0;"></div>
+    <p style="margin: 3px 0; font-size: 10px; color: #666;">Amarelo (baixo) → Marrom (alto)</p>
+    
+    <hr style="margin: 10px 0; border: none; border-top: 1px solid #ccc;">
+    
+    <p style="margin: 8px 0; font-size: 11px;"><b>Marcadores por Óbitos:</b></p>
+    <div style="margin: 5px 0;">
+        <span style="display: inline-block; width: 12px; height: 12px; background: #8B0000; 
+                     border-radius: 50%; margin-right: 6px;"></span>
+        <span style="font-size: 11px;">> 20 óbitos</span>
+    </div>
+    <div style="margin: 5px 0;">
+        <span style="display: inline-block; width: 12px; height: 12px; background: #DC143C; 
+                     border-radius: 50%; margin-right: 6px;"></span>
+        <span style="font-size: 11px;">15-20 óbitos</span>
+    </div>
+    <div style="margin: 5px 0;">
+        <span style="display: inline-block; width: 12px; height: 12px; background: #FF6347; 
+                     border-radius: 50%; margin-right: 6px;"></span>
+        <span style="font-size: 11px;">12-15 óbitos</span>
+    </div>
+    <div style="margin: 5px 0;">
+        <span style="display: inline-block; width: 12px; height: 12px; background: #FFA07A; 
+                     border-radius: 50%; margin-right: 6px;"></span>
+        <span style="font-size: 11px;">< 12 óbitos</span>
+    </div>
+    
+    <hr style="margin: 10px 0; border: none; border-top: 1px solid #ccc;">
+    
+    <p style="margin: 8px 0; font-size: 11px;"><b>Resumo:</b></p>
+    <p style="margin: 2px 0; font-size: 10px;">
+        <b>Óbitos:</b> 704<br>
+        <b>Casos:</b> 4.055<br>
+        <b>CFR:</b> 17,4%<br>
+        <b>Bairros:</b> 41
+    </p>
+    
+    <hr style="margin: 10px 0; border: none; border-top: 1px solid #ccc;">
+    
+    <p style="margin: 5px 0; font-size: 10px; color: #666;">
+        <i>Dica: Use o zoom para explorar detalhes</i>
+    </p>
+    <p style="margin: 5px 0; font-size: 9px; color: #999;">
+        Fonte: SINAN (2007-2025)
+    </p>
+</div>
+    
+            <div class="folium-map" id="map_133584918f435e4d1ea082c695b1e493" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_133584918f435e4d1ea082c695b1e493 = L.map(
+                "map_133584918f435e4d1ea082c695b1e493",
+                {
+                    center: [-23.5505, -46.6333],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_f7c1f57943dadd2edcc16b7202f412fc = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_f7c1f57943dadd2edcc16b7202f412fc.addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+            var heat_map_bb641e610669bca62c838a5b280365a8 = L.heatLayer(
+                [[-23.50643918552954, -46.404643511492324], [-23.505962570307812, -46.40237283601589], [-23.50872590181047, -46.401299822263454], [-23.508234389939307, -46.402052512327], [-23.50727740545861, -46.40524389955702], [-23.50480335569157, -46.40926063814428], [-23.508545744154766, -46.4032562006709], [-23.506583336552815, -46.40304315263874], [-23.47693661795194, -46.415428492419004], [-23.484280109928537, -46.41649737147937], [-23.47981207006951, -46.416021486792864], [-23.47944317499432, -46.41128061802541], [-23.47895101007191, -46.41473023245381], [-23.479924405175815, -46.414047840252344], [-23.481242361879325, -46.41288148775115], [-23.522552256963, -46.44129433331345], [-23.523015218514036, -46.43561709275462], [-23.525597301337065, -46.436864219422674], [-23.52616375267901, -46.43631612480769], [-23.523151283542017, -46.437119372320005], [-23.5175366211471, -46.43527624799494], [-23.5574253900721, -46.47850990951504], [-23.555863317597314, -46.48334594127668], [-23.55746259584964, -46.48184639527655], [-23.553334565198394, -46.477272177984915], [-23.55580805616746, -46.479004653777835], [-23.558930578279544, -46.481052165157706], [-23.553954252002338, -46.47307253286407], [-23.551584045253257, -46.470199911591735], [-23.54816446120738, -46.47393788220648], [-23.552110876307804, -46.47122405560701], [-23.552105251486317, -46.47230540922975], [-23.552474064537005, -46.47115076042688], [-23.464191320911844, -46.45040297675522], [-23.469678194256172, -46.44967556716468], [-23.47022876731498, -46.45025142553814], [-23.46797233510918, -46.45233868382267], [-23.464053188096045, -46.44826017231646], [-23.466534315438782, -46.44787307477914], [-23.47064657642954, -46.44680333678307], [-23.553109838240065, -46.51159719643279], [-23.55425110415285, -46.510976653198355], [-23.550832158629248, -46.51086677353362], [-23.552093631640965, -46.510943836580275], [-23.55256436968334, -46.50696397869369], [-23.548336999187473, -46.511383459090354], [-23.553215823472826, -46.50861066312999], [-23.493772509905188, -46.423344067318446], [-23.495327527087625, -46.426125956206356], [-23.49816108985632, -46.42446293019143], [-23.495354298256043, -46.42530961142164], [-23.493753650309817, -46.42416997274356], [-23.495599728105173, -46.42396040386787], [-23.54397331664627, -46.63338386701111], [-23.54327184737634, -46.63051135513726], [-23.54509731804501, -46.63053872259469], [-23.546275476174223, -46.63432579398037], [-23.54367958459549, -46.63313815899771], [-23.543734133160005, -46.62815972595824], [-23.552378462669918, -46.62046373923271], [-23.552217966422997, -46.62200540884554], [-23.551059009867497, -46.62438506870904], [-23.552321041042894, -46.62328905079001], [-23.552187117390684, -46.619743948136545], [-23.54949992441581, -46.622059090077826], [-23.559277483330973, -46.61847806722654], [-23.56400542044352, -46.619413096796], [-23.55939496298227, -46.61726134753682], [-23.55588120896615, -46.61702095207514], [-23.563861519179643, -46.61963814425308], [-23.560040219161692, -46.62290213525841], [-23.570282447159848, -46.60997611755195], [-23.5667251815351, -46.61005907095932], [-23.57097960175142, -46.608183756222], [-23.56649713669434, -46.60927209851155], [-23.565945117929683, -46.611367956066594], [-23.563611628339316, -46.611575041228974], [-23.56494647549983, -46.614731567060616], [-23.564182867344755, -46.6137118445248], [-23.565895728438118, -46.61393699533151], [-23.56419088138203, -46.61504803479612], [-23.58694878313572, -46.63419972829803], [-23.585385275421537, -46.632392625497054], [-23.579530460304824, -46.633567900571165], [-23.583772757789223, -46.636032577432935], [-23.58179954615404, -46.636140128845064], [-23.591425404680585, -46.65973187543439], [-23.59755695598934, -46.659497719819484], [-23.593276725711164, -46.659605830998366], [-23.595973074738335, -46.659296541444185], [-23.59326521688532, -46.6616597779607], [-23.574370626615085, -46.68828124131963], [-23.581095668094346, -46.68784272479161], [-23.57999836436642, -46.68247509584226], [-23.579962477199373, -46.68339565792755], [-23.577540208155057, -46.68309824306597], [-23.414104024859324, -46.49374959287658], [-23.416346903698468, -46.49009166002498], [-23.413108924623902, -46.49381094088249], [-23.416106337415762, -46.49690560580114], [-23.41240318248686, -46.494772709888544], [-23.414958763762314, -46.494088433830505], [-23.440471090237782, -46.51014264801978], [-23.441885007946443, -46.512421588193796], [-23.442758779648393, -46.51764324935152], [-23.441555936274174, -46.51437091502333], [-23.44158330068138, -46.5104289156815], [-23.462411777584524, -46.525265134829276], [-23.460522584928462, -46.52584880414236], [-23.458253063599138, -46.52489431402308], [-23.459837043202185, -46.52458800414825], [-23.4611977389182, -46.523522535458504], [-23.474446022353426, -46.53436370551513], [-23.474979040041003, -46.540493088329576], [-23.474215787759462, -46.53643754913966], [-23.474611074608585, -46.540374281724134], [-23.474440930488957, -46.53738778884856], [-23.487130026786108, -46.54969502941115], [-23.487019787343133, -46.54536554228332], [-23.48407638070054, -46.55011071194435], [-23.485711937151123, -46.54581487254852], [-23.49117005401967, -46.54727811545057], [-23.495935359086207, -46.562566509695], [-23.49891306090873, -46.55803168037901], [-23.49611561833317, -46.56074360723671], [-23.499732227204433, -46.56065811129817], [-23.502451503783305, -46.56109852408157], [-23.50940952957979, -46.57105303499025], [-23.506125574663628, -46.573363163935035], [-23.50897903674652, -46.56915973828816], [-23.512435601231015, -46.57023334038059], [-23.508455325890512, -46.57565952800814], [-23.51972706960834, -46.556185305119], [-23.520951744186494, -46.55443111991041], [-23.518483109452504, -46.557325669008634], [-23.519444969207232, -46.55508450991416], [-23.529845514799323, -46.703872622968866], [-23.529068635734355, -46.704650281597964], [-23.529761972914663, -46.70427299864477], [-23.52897624303877, -46.70457970668082], [-23.536492790527543, -46.701922798898586], [-23.528827416405367, -46.70437820162024], [-23.561736127802213, -46.714676091384376], [-23.564857995785868, -46.713047082082696], [-23.560215440146195, -46.71672180503442], [-23.558494780038203, -46.71236737648076], [-23.566677930975885, -46.718010052544706], [-23.570421755591997, -46.685218863364796], [-23.567452452282737, -46.68503018041268], [-23.5732882795098, -46.68314963800096], [-23.567784439613042, -46.68277047221563], [-23.571096763788972, -46.68316271264218], [-23.57362664586374, -46.67183791067696], [-23.579274668868873, -46.67071680269755], [-23.57696150759735, -46.672141682658975], [-23.573267854552597, -46.669354917735525], [-23.574464470637576, -46.669859412791666], [-23.530540004336764, -46.67265021491426], [-23.53159009395017, -46.67164823036606], [-23.529491988203624, -46.67445833317867], [-23.52988385904645, -46.675063795438184], [-23.61276516736753, -46.72765096351298], [-23.610070430148866, -46.73247309674737], [-23.608808009699843, -46.727491836960894], [-23.6081131901894, -46.7275112228323], [-23.608158293609836, -46.733085695032315], [-23.613964575809657, -46.745016884200815], [-23.613588727219827, -46.741904302159064], [-23.613898876805486, -46.745427053157755], [-23.615526559295688, -46.74232802274602], [-23.622985722025966, -46.759260283418456], [-23.62396592140851, -46.761874014761474], [-23.62256618318066, -46.75728504552872], [-23.625954359236623, -46.76053166358156], [-23.658952956380233, -46.648451594882815], [-23.65799472744594, -46.648724148932544], [-23.65493557712689, -46.64860600430683], [-23.65633181374947, -46.64782963139832], [-23.655865170469184, -46.64964527524554], [-23.71244035009665, -46.679918226772756], [-23.710493244774774, -46.681679313711534], [-23.71495360290993, -46.67892322892095], [-23.711113095526418, -46.680300438460776], [-23.712663811141617, -46.682001065626054], [-23.743355483924436, -46.722598546860596], [-23.747483859904996, -46.71747414132462], [-23.74025854898272, -46.72121223778656], [-23.74784005368364, -46.718100995397236], [-23.594747307988314, -46.64716596549688], [-23.59055410762532, -46.644912349372774], [-23.59594327537616, -46.64328797895645], [-23.592391267701046, -46.64779697485239], [-23.619289053665778, -46.651689325239516], [-23.620351126935525, -46.65461591618717], [-23.618623342884607, -46.65671009955932], [-23.61771249263424, -46.654411182147754], [-23.618774603022473, -46.65746220476472], [-23.514350364928465, -46.507366641250165], [-23.509020617905822, -46.51013910555787], [-23.511882055017356, -46.50930170324], [-23.512716673980087, -46.51021275007142], [-23.511470716822476, -46.5101080773733], [-23.537964701177742, -46.604778291971044], [-23.54343081648246, -46.6072219035315], [-23.53942675613204, -46.60425339876766], [-23.54209824630107, -46.60718174995829], [-23.698496555602546, -46.63696408225401], [-23.706707024505246, -46.63383008064586], [-23.699579857711775, -46.63496739290436], [-23.704382336909635, -46.635846131461044], [-23.680433245968782, -46.656651231741655], [-23.67698823021376, -46.65508872345966], [-23.68394787625136, -46.654952298323614], [-23.678181559625735, -46.65451968464167], [-23.730703899019524, -46.700364985440196], [-23.730961679580858, -46.70324706865382], [-23.73137560464128, -46.69905408380078], [-23.729683131636932, -46.702772652967234], [-23.706633022764386, -46.687536417552394], [-23.709330837066048, -46.688830877311396], [-23.711766418224673, -46.69181647817216], [-23.712171907008003, -46.6914001591696]],
+                {
+  "minOpacity": 0.5,
+  "maxZoom": 12,
+  "radius": 30,
+  "blur": 40,
+  "gradient": {
+  0.0: "#fff7bc",
+  0.3: "#fee391",
+  0.5: "#fec44f",
+  0.7: "#fe9929",
+  1.0: "#d95f0e",
+},
+}
+            );
+        
+    
+            heat_map_bb641e610669bca62c838a5b280365a8.addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+            var circle_marker_3bf1099bc126c9ae8039badc770f2c29 = L.circleMarker(
+                [-23.507, -46.403],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8B0000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 25.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_24eb1e974213fb6783c0a7e53ba56a89 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c09be757f32e00adb109b23adaf232ee = $(`<div id="html_c09be757f32e00adb109b23adaf232ee" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Itaquera</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>25</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5070</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4030</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_24eb1e974213fb6783c0a7e53ba56a89.setContent(html_c09be757f32e00adb109b23adaf232ee);
+            
+        
+
+        circle_marker_3bf1099bc126c9ae8039badc770f2c29.bindPopup(popup_24eb1e974213fb6783c0a7e53ba56a89)
+        ;
+
+        
+    
+    
+            circle_marker_3bf1099bc126c9ae8039badc770f2c29.bindTooltip(
+                `<div>
+                     Itaquera: 25 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5390d9c0d40b0275ea41788d4351c0c2 = L.circleMarker(
+                [-23.48, -46.415],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8B0000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 22.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_07fc5193abde2aeed47eeb19a8f22b7f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fd81e6324f80e34cd0c91e701390da1e = $(`<div id="html_fd81e6324f80e34cd0c91e701390da1e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">São Miguel Paulista</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>22</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4800</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4150</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_07fc5193abde2aeed47eeb19a8f22b7f.setContent(html_fd81e6324f80e34cd0c91e701390da1e);
+            
+        
+
+        circle_marker_5390d9c0d40b0275ea41788d4351c0c2.bindPopup(popup_07fc5193abde2aeed47eeb19a8f22b7f)
+        ;
+
+        
+    
+    
+            circle_marker_5390d9c0d40b0275ea41788d4351c0c2.bindTooltip(
+                `<div>
+                     São Miguel Paulista: 22 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0d005ae19ccac9be13bf169f23145348 = L.circleMarker(
+                [-23.523, -46.438],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 21.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_31f09ffca69f69565a9e6c4146d4ba45 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5efbc5aebfbf59878715090eef61d055 = $(`<div id="html_5efbc5aebfbf59878715090eef61d055" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Ermelino Maranhão</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>20</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5230</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4380</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_31f09ffca69f69565a9e6c4146d4ba45.setContent(html_5efbc5aebfbf59878715090eef61d055);
+            
+        
+
+        circle_marker_0d005ae19ccac9be13bf169f23145348.bindPopup(popup_31f09ffca69f69565a9e6c4146d4ba45)
+        ;
+
+        
+    
+    
+            circle_marker_0d005ae19ccac9be13bf169f23145348.bindTooltip(
+                `<div>
+                     Ermelino Maranhão: 20 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3e46cee4311b3905c9f394853a87997d = L.circleMarker(
+                [-23.556, -46.48],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 19.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_bb40b326af265a9676802c430cd18924 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d377bdf15a28559f75b872382883580e = $(`<div id="html_d377bdf15a28559f75b872382883580e" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Guaianazes</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>18</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5560</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4800</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_bb40b326af265a9676802c430cd18924.setContent(html_d377bdf15a28559f75b872382883580e);
+            
+        
+
+        circle_marker_3e46cee4311b3905c9f394853a87997d.bindPopup(popup_bb40b326af265a9676802c430cd18924)
+        ;
+
+        
+    
+    
+            circle_marker_3e46cee4311b3905c9f394853a87997d.bindTooltip(
+                `<div>
+                     Guaianazes: 18 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8cd9f68aaefe578f9d24af1870f76bf4 = L.circleMarker(
+                [-23.552, -46.472],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 21.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_7ff3f51ab11d83a943abca6f869883c7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c74baf4190f7e9be99510337ecef5bf = $(`<div id="html_9c74baf4190f7e9be99510337ecef5bf" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Tatuapé</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>20</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5520</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4720</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_7ff3f51ab11d83a943abca6f869883c7.setContent(html_9c74baf4190f7e9be99510337ecef5bf);
+            
+        
+
+        circle_marker_8cd9f68aaefe578f9d24af1870f76bf4.bindPopup(popup_7ff3f51ab11d83a943abca6f869883c7)
+        ;
+
+        
+    
+    
+            circle_marker_8cd9f68aaefe578f9d24af1870f76bf4.bindTooltip(
+                `<div>
+                     Tatuapé: 20 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf813c2780e1daa7a23842d318fc4494 = L.circleMarker(
+                [-23.468, -46.45],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8B0000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 22.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_b973070ac2b9a9267758decba545bb28 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d46e72237c8bec3182183b5bd037f989 = $(`<div id="html_d46e72237c8bec3182183b5bd037f989" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Aricanduva</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>22</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4680</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4500</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_b973070ac2b9a9267758decba545bb28.setContent(html_d46e72237c8bec3182183b5bd037f989);
+            
+        
+
+        circle_marker_bf813c2780e1daa7a23842d318fc4494.bindPopup(popup_b973070ac2b9a9267758decba545bb28)
+        ;
+
+        
+    
+    
+            circle_marker_bf813c2780e1daa7a23842d318fc4494.bindTooltip(
+                `<div>
+                     Aricanduva: 22 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_84e36411aefcef272f4dc8f0532f9afe = L.circleMarker(
+                [-23.552, -46.51],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8B0000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 23.400000000000002, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_dcb683ff998cca7d826d2a180a6fd060 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b3dab88c97c0b83f1dfde47a2bf35fc0 = $(`<div id="html_b3dab88c97c0b83f1dfde47a2bf35fc0" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Cidade Patriarca</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>23</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5520</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5100</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_dcb683ff998cca7d826d2a180a6fd060.setContent(html_b3dab88c97c0b83f1dfde47a2bf35fc0);
+            
+        
+
+        circle_marker_84e36411aefcef272f4dc8f0532f9afe.bindPopup(popup_dcb683ff998cca7d826d2a180a6fd060)
+        ;
+
+        
+    
+    
+            circle_marker_84e36411aefcef272f4dc8f0532f9afe.bindTooltip(
+                `<div>
+                     Cidade Patriarca: 23 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0061faee38087e1a42bef4d70e426c27 = L.circleMarker(
+                [-23.495, -46.425],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 20.2, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_966c1eb175a78f2136b0c10600deb6f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c129dc8e652cb7094cf8039d40e3bc87 = $(`<div id="html_c129dc8e652cb7094cf8039d40e3bc87" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Itaim Paulista</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>19</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Leste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4950</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4250</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_966c1eb175a78f2136b0c10600deb6f3.setContent(html_c129dc8e652cb7094cf8039d40e3bc87);
+            
+        
+
+        circle_marker_0061faee38087e1a42bef4d70e426c27.bindPopup(popup_966c1eb175a78f2136b0c10600deb6f3)
+        ;
+
+        
+    
+    
+            circle_marker_0061faee38087e1a42bef4d70e426c27.bindTooltip(
+                `<div>
+                     Itaim Paulista: 19 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_49ff3a24058965c76694d138a401e749 = L.circleMarker(
+                [-23.544, -46.633],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 21.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_ed05eb4b6f963d5e980a706a1a3e6cc4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85ab09a2818eb8bfe056d71803c1bc78 = $(`<div id="html_85ab09a2818eb8bfe056d71803c1bc78" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Sé</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>20</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5440</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6330</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_ed05eb4b6f963d5e980a706a1a3e6cc4.setContent(html_85ab09a2818eb8bfe056d71803c1bc78);
+            
+        
+
+        circle_marker_49ff3a24058965c76694d138a401e749.bindPopup(popup_ed05eb4b6f963d5e980a706a1a3e6cc4)
+        ;
+
+        
+    
+    
+            circle_marker_49ff3a24058965c76694d138a401e749.bindTooltip(
+                `<div>
+                     Sé: 20 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5866d48d9b4cc53defbd02f6c92f4c59 = L.circleMarker(
+                [-23.553, -46.623],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 19.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_403c93be962b9e9c00ac12318f067872 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d4cd00dc386bf83641c52e738e5e1996 = $(`<div id="html_d4cd00dc386bf83641c52e738e5e1996" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Brás</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>18</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5530</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6230</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_403c93be962b9e9c00ac12318f067872.setContent(html_d4cd00dc386bf83641c52e738e5e1996);
+            
+        
+
+        circle_marker_5866d48d9b4cc53defbd02f6c92f4c59.bindPopup(popup_403c93be962b9e9c00ac12318f067872)
+        ;
+
+        
+    
+    
+            circle_marker_5866d48d9b4cc53defbd02f6c92f4c59.bindTooltip(
+                `<div>
+                     Brás: 18 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_38e8411ff96fa68eddfac773a0cc19ac = L.circleMarker(
+                [-23.56, -46.62],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 19.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_74f973b27b45a98ec8b2178d85148ae6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2bf72f470d33bb6e5b0a25795955468a = $(`<div id="html_2bf72f470d33bb6e5b0a25795955468a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Pari</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>18</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5600</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6200</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_74f973b27b45a98ec8b2178d85148ae6.setContent(html_2bf72f470d33bb6e5b0a25795955468a);
+            
+        
+
+        circle_marker_38e8411ff96fa68eddfac773a0cc19ac.bindPopup(popup_74f973b27b45a98ec8b2178d85148ae6)
+        ;
+
+        
+    
+    
+            circle_marker_38e8411ff96fa68eddfac773a0cc19ac.bindTooltip(
+                `<div>
+                     Pari: 18 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_390061704ac45b4452ffcb507b34fd79 = L.circleMarker(
+                [-23.57, -46.61],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_4754202916b2112a897a106bd782268f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3e4fab8ce995db26f5f96bfc52467421 = $(`<div id="html_3e4fab8ce995db26f5f96bfc52467421" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Cambuci</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5700</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6100</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_4754202916b2112a897a106bd782268f.setContent(html_3e4fab8ce995db26f5f96bfc52467421);
+            
+        
+
+        circle_marker_390061704ac45b4452ffcb507b34fd79.bindPopup(popup_4754202916b2112a897a106bd782268f)
+        ;
+
+        
+    
+    
+            circle_marker_390061704ac45b4452ffcb507b34fd79.bindTooltip(
+                `<div>
+                     Cambuci: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_123825d285b9611edad9637ae24b4392 = L.circleMarker(
+                [-23.565, -46.615],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_97d93d622c51c6c3c1430185a62b74b9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7e3081c7c70dd9e332a732c453900930 = $(`<div id="html_7e3081c7c70dd9e332a732c453900930" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Belém</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5650</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6150</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_97d93d622c51c6c3c1430185a62b74b9.setContent(html_7e3081c7c70dd9e332a732c453900930);
+            
+        
+
+        circle_marker_123825d285b9611edad9637ae24b4392.bindPopup(popup_97d93d622c51c6c3c1430185a62b74b9)
+        ;
+
+        
+    
+    
+            circle_marker_123825d285b9611edad9637ae24b4392.bindTooltip(
+                `<div>
+                     Belém: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_41ea36eca926db9790c5cc588631f80c = L.circleMarker(
+                [-23.584, -46.635],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 18.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_74e17edc1675f934ce65d740d08a6dc0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd0d963705e7cb2e6a2905dc4753694b = $(`<div id="html_bd0d963705e7cb2e6a2905dc4753694b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Mooca</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>17</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5840</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6350</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_74e17edc1675f934ce65d740d08a6dc0.setContent(html_bd0d963705e7cb2e6a2905dc4753694b);
+            
+        
+
+        circle_marker_41ea36eca926db9790c5cc588631f80c.bindPopup(popup_74e17edc1675f934ce65d740d08a6dc0)
+        ;
+
+        
+    
+    
+            circle_marker_41ea36eca926db9790c5cc588631f80c.bindTooltip(
+                `<div>
+                     Mooca: 17 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b764fbd5cbf44df3084b4a0d78a98943 = L.circleMarker(
+                [-23.595, -46.66],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_3dee674f8d2bdabfc40332bb223a756b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e20e90a967010c1f1da7d8b49175b6d6 = $(`<div id="html_e20e90a967010c1f1da7d8b49175b6d6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Água Rasa</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5950</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6600</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_3dee674f8d2bdabfc40332bb223a756b.setContent(html_e20e90a967010c1f1da7d8b49175b6d6);
+            
+        
+
+        circle_marker_b764fbd5cbf44df3084b4a0d78a98943.bindPopup(popup_3dee674f8d2bdabfc40332bb223a756b)
+        ;
+
+        
+    
+    
+            circle_marker_b764fbd5cbf44df3084b4a0d78a98943.bindTooltip(
+                `<div>
+                     Água Rasa: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d6258f2d1733aff824dc35a0ecbb4265 = L.circleMarker(
+                [-23.578, -46.685],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_48ccdfc0c042258dd8507086b627f653 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f54e0bde359305548756596dff0ac212 = $(`<div id="html_f54e0bde359305548756596dff0ac212" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Vila Formosa</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5780</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6850</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_48ccdfc0c042258dd8507086b627f653.setContent(html_f54e0bde359305548756596dff0ac212);
+            
+        
+
+        circle_marker_d6258f2d1733aff824dc35a0ecbb4265.bindPopup(popup_48ccdfc0c042258dd8507086b627f653)
+        ;
+
+        
+    
+    
+            circle_marker_d6258f2d1733aff824dc35a0ecbb4265.bindTooltip(
+                `<div>
+                     Vila Formosa: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d28e345df91f0a32630e91306c0b10d = L.circleMarker(
+                [-23.415, -46.495],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 19.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_c99dbc09f45715b0eeba5dcc585780e4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1cb896fc567be561755e755d7947093a = $(`<div id="html_1cb896fc567be561755e755d7947093a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Tremembé</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>18</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4150</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.4950</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_c99dbc09f45715b0eeba5dcc585780e4.setContent(html_1cb896fc567be561755e755d7947093a);
+            
+        
+
+        circle_marker_6d28e345df91f0a32630e91306c0b10d.bindPopup(popup_c99dbc09f45715b0eeba5dcc585780e4)
+        ;
+
+        
+    
+    
+            circle_marker_6d28e345df91f0a32630e91306c0b10d.bindTooltip(
+                `<div>
+                     Tremembé: 18 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_22427aebe8f512a2095f8f4fb1c74bff = L.circleMarker(
+                [-23.442, -46.512],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_a6cb770f8e7dc676d691e00b00fc5c23 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93063ca86e9ad042eb1b45fecd39fec5 = $(`<div id="html_93063ca86e9ad042eb1b45fecd39fec5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Jaçanã</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4420</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5120</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_a6cb770f8e7dc676d691e00b00fc5c23.setContent(html_93063ca86e9ad042eb1b45fecd39fec5);
+            
+        
+
+        circle_marker_22427aebe8f512a2095f8f4fb1c74bff.bindPopup(popup_a6cb770f8e7dc676d691e00b00fc5c23)
+        ;
+
+        
+    
+    
+            circle_marker_22427aebe8f512a2095f8f4fb1c74bff.bindTooltip(
+                `<div>
+                     Jaçanã: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_79b2fa2be9a319219a769d43a03fbb08 = L.circleMarker(
+                [-23.46, -46.525],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_43130022dbae0dfb7641c2c8a8645900 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac6f58a8f7750faa52a03c96037ab3d5 = $(`<div id="html_ac6f58a8f7750faa52a03c96037ab3d5" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Mandaqui</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4600</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5250</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_43130022dbae0dfb7641c2c8a8645900.setContent(html_ac6f58a8f7750faa52a03c96037ab3d5);
+            
+        
+
+        circle_marker_79b2fa2be9a319219a769d43a03fbb08.bindPopup(popup_43130022dbae0dfb7641c2c8a8645900)
+        ;
+
+        
+    
+    
+            circle_marker_79b2fa2be9a319219a769d43a03fbb08.bindTooltip(
+                `<div>
+                     Mandaqui: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7212efdeaa2461b60ed3d59767f1c59d = L.circleMarker(
+                [-23.475, -46.538],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_de115170a5a90199fb547d1e2df0076e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e94bc932ec7587908e3845c39d5b8d55 = $(`<div id="html_e94bc932ec7587908e3845c39d5b8d55" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Vila Maria</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4750</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5380</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_de115170a5a90199fb547d1e2df0076e.setContent(html_e94bc932ec7587908e3845c39d5b8d55);
+            
+        
+
+        circle_marker_7212efdeaa2461b60ed3d59767f1c59d.bindPopup(popup_de115170a5a90199fb547d1e2df0076e)
+        ;
+
+        
+    
+    
+            circle_marker_7212efdeaa2461b60ed3d59767f1c59d.bindTooltip(
+                `<div>
+                     Vila Maria: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b6520cbfb8a015d8b40d95d91d79031e = L.circleMarker(
+                [-23.487, -46.548],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_e8f7ea98989b7c2907c53333913cb1ff = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a29c607444d29b1e47737b5695c85258 = $(`<div id="html_a29c607444d29b1e47737b5695c85258" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Casa Verde</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.4870</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5480</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_e8f7ea98989b7c2907c53333913cb1ff.setContent(html_a29c607444d29b1e47737b5695c85258);
+            
+        
+
+        circle_marker_b6520cbfb8a015d8b40d95d91d79031e.bindPopup(popup_e8f7ea98989b7c2907c53333913cb1ff)
+        ;
+
+        
+    
+    
+            circle_marker_b6520cbfb8a015d8b40d95d91d79031e.bindTooltip(
+                `<div>
+                     Casa Verde: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7fbab5c8878c1fd94ed2eae399903900 = L.circleMarker(
+                [-23.5, -46.56],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_743871cc74ad9d028abca043d9d81aa7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e2dbdfd649da88c21d6851e57cd84fb4 = $(`<div id="html_e2dbdfd649da88c21d6851e57cd84fb4" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Limão</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5000</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5600</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_743871cc74ad9d028abca043d9d81aa7.setContent(html_e2dbdfd649da88c21d6851e57cd84fb4);
+            
+        
+
+        circle_marker_7fbab5c8878c1fd94ed2eae399903900.bindPopup(popup_743871cc74ad9d028abca043d9d81aa7)
+        ;
+
+        
+    
+    
+            circle_marker_7fbab5c8878c1fd94ed2eae399903900.bindTooltip(
+                `<div>
+                     Limão: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8228a5bb0f99f905c037868f7decf7b9 = L.circleMarker(
+                [-23.51, -46.57],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_073bb7bf3528cab6c0dd1020e929395a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_df7dec7b73f5f1ea071f047783f281a6 = $(`<div id="html_df7dec7b73f5f1ea071f047783f281a6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Santana</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5100</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5700</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_073bb7bf3528cab6c0dd1020e929395a.setContent(html_df7dec7b73f5f1ea071f047783f281a6);
+            
+        
+
+        circle_marker_8228a5bb0f99f905c037868f7decf7b9.bindPopup(popup_073bb7bf3528cab6c0dd1020e929395a)
+        ;
+
+        
+    
+    
+            circle_marker_8228a5bb0f99f905c037868f7decf7b9.bindTooltip(
+                `<div>
+                     Santana: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a937d5d39d893c6b62379c9eeece5379 = L.circleMarker(
+                [-23.52, -46.555],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 16.200000000000003, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_e83b6053cd739d3b507fea2dc8827680 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_37ddc67f5deb686b03ae20e1fbd6d15a = $(`<div id="html_37ddc67f5deb686b03ae20e1fbd6d15a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Tucuruvi</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>14</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Norte</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5200</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5550</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_e83b6053cd739d3b507fea2dc8827680.setContent(html_37ddc67f5deb686b03ae20e1fbd6d15a);
+            
+        
+
+        circle_marker_a937d5d39d893c6b62379c9eeece5379.bindPopup(popup_e83b6053cd739d3b507fea2dc8827680)
+        ;
+
+        
+    
+    
+            circle_marker_a937d5d39d893c6b62379c9eeece5379.bindTooltip(
+                `<div>
+                     Tucuruvi: 14 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_05c4299bf2520b85c7d545a8aace7913 = L.circleMarker(
+                [-23.53, -46.705],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 19.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_5280c68af9b062a3c07affff7c809058 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0dfd122a6bacc05422b1c56565a21479 = $(`<div id="html_0dfd122a6bacc05422b1c56565a21479" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Lapa</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>18</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5300</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7050</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_5280c68af9b062a3c07affff7c809058.setContent(html_0dfd122a6bacc05422b1c56565a21479);
+            
+        
+
+        circle_marker_05c4299bf2520b85c7d545a8aace7913.bindPopup(popup_5280c68af9b062a3c07affff7c809058)
+        ;
+
+        
+    
+    
+            circle_marker_05c4299bf2520b85c7d545a8aace7913.bindTooltip(
+                `<div>
+                     Lapa: 18 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bdd180ef54570c3886d9ffea1dc76a11 = L.circleMarker(
+                [-23.561, -46.715],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_49ed458b05b891c676f6dfcf38bd663c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_33af0fbca6d45b4b143640eaba7393bc = $(`<div id="html_33af0fbca6d45b4b143640eaba7393bc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Butantã</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5610</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7150</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_49ed458b05b891c676f6dfcf38bd663c.setContent(html_33af0fbca6d45b4b143640eaba7393bc);
+            
+        
+
+        circle_marker_bdd180ef54570c3886d9ffea1dc76a11.bindPopup(popup_49ed458b05b891c676f6dfcf38bd663c)
+        ;
+
+        
+    
+    
+            circle_marker_bdd180ef54570c3886d9ffea1dc76a11.bindTooltip(
+                `<div>
+                     Butantã: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bca8874885fbc24806b9b6d5ad3cc9b8 = L.circleMarker(
+                [-23.57, -46.685],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_c7ff46f59393aa638651ec5a56b83792 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_584130e841de1bc29bf120362e26205a = $(`<div id="html_584130e841de1bc29bf120362e26205a" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Pinheiros</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5700</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6850</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_c7ff46f59393aa638651ec5a56b83792.setContent(html_584130e841de1bc29bf120362e26205a);
+            
+        
+
+        circle_marker_bca8874885fbc24806b9b6d5ad3cc9b8.bindPopup(popup_c7ff46f59393aa638651ec5a56b83792)
+        ;
+
+        
+    
+    
+            circle_marker_bca8874885fbc24806b9b6d5ad3cc9b8.bindTooltip(
+                `<div>
+                     Pinheiros: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f9df1f3a3abbffc18b6753a5744a1283 = L.circleMarker(
+                [-23.575, -46.67],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_4627f1b80a1385823b29a9c52c3c39a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_31d67f36944a3830be4ddf08a66b1d2b = $(`<div id="html_31d67f36944a3830be4ddf08a66b1d2b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Vila Madalena</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5750</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6700</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_4627f1b80a1385823b29a9c52c3c39a4.setContent(html_31d67f36944a3830be4ddf08a66b1d2b);
+            
+        
+
+        circle_marker_f9df1f3a3abbffc18b6753a5744a1283.bindPopup(popup_4627f1b80a1385823b29a9c52c3c39a4)
+        ;
+
+        
+    
+    
+            circle_marker_f9df1f3a3abbffc18b6753a5744a1283.bindTooltip(
+                `<div>
+                     Vila Madalena: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_82a85be36a8adf1c309865c498beba92 = L.circleMarker(
+                [-23.53, -46.673],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 16.200000000000003, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_19654ade71ec61caec99a6f517ef3a27 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c9d876459f26f328df0e58633ce36ace = $(`<div id="html_c9d876459f26f328df0e58633ce36ace" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Perdizes</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>14</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5300</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6730</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_19654ade71ec61caec99a6f517ef3a27.setContent(html_c9d876459f26f328df0e58633ce36ace);
+            
+        
+
+        circle_marker_82a85be36a8adf1c309865c498beba92.bindPopup(popup_19654ade71ec61caec99a6f517ef3a27)
+        ;
+
+        
+    
+    
+            circle_marker_82a85be36a8adf1c309865c498beba92.bindTooltip(
+                `<div>
+                     Perdizes: 14 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_453e2af166827ef088baeb11093ac487 = L.circleMarker(
+                [-23.608, -46.73],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_cb1b198bea8c2cb01065a7e808903907 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ed464cf637b08ee0d6f9276b130dfadc = $(`<div id="html_ed464cf637b08ee0d6f9276b130dfadc" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Jaguaré</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6080</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7300</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_cb1b198bea8c2cb01065a7e808903907.setContent(html_ed464cf637b08ee0d6f9276b130dfadc);
+            
+        
+
+        circle_marker_453e2af166827ef088baeb11093ac487.bindPopup(popup_cb1b198bea8c2cb01065a7e808903907)
+        ;
+
+        
+    
+    
+            circle_marker_453e2af166827ef088baeb11093ac487.bindTooltip(
+                `<div>
+                     Jaguaré: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0e06df4d3b7894d51eee4c2ddeaa7e2 = L.circleMarker(
+                [-23.615, -46.745],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 16.200000000000003, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_1f4c113a7268a79d7f20667a144bb8a5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bdd74a39e3f78d73d279e7a5ab1b4da6 = $(`<div id="html_bdd74a39e3f78d73d279e7a5ab1b4da6" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Vila Leopoldina</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>14</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6150</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7450</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_1f4c113a7268a79d7f20667a144bb8a5.setContent(html_bdd74a39e3f78d73d279e7a5ab1b4da6);
+            
+        
+
+        circle_marker_a0e06df4d3b7894d51eee4c2ddeaa7e2.bindPopup(popup_1f4c113a7268a79d7f20667a144bb8a5)
+        ;
+
+        
+    
+    
+            circle_marker_a0e06df4d3b7894d51eee4c2ddeaa7e2.bindTooltip(
+                `<div>
+                     Vila Leopoldina: 14 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_af709e8d4e804dd0fe985c636b8ce201 = L.circleMarker(
+                [-23.625, -46.76],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 15.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_09fde708e11d8c3c89497e1fde63c897 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e6025650a551cdc5cebfda554558001b = $(`<div id="html_e6025650a551cdc5cebfda554558001b" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Morumbi</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>13</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Oeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6250</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7600</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_09fde708e11d8c3c89497e1fde63c897.setContent(html_e6025650a551cdc5cebfda554558001b);
+            
+        
+
+        circle_marker_af709e8d4e804dd0fe985c636b8ce201.bindPopup(popup_09fde708e11d8c3c89497e1fde63c897)
+        ;
+
+        
+    
+    
+            circle_marker_af709e8d4e804dd0fe985c636b8ce201.bindTooltip(
+                `<div>
+                     Morumbi: 13 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_087f5ccc20e771a67ea379b872343681 = L.circleMarker(
+                [-23.657, -46.65],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 18.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_7fe9d7b42333200ebedc20c97bf8dcf5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_62ea5ceae4b50d5592ae9d4fd3e9580d = $(`<div id="html_62ea5ceae4b50d5592ae9d4fd3e9580d" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Jabaquara</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>17</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6570</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6500</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_7fe9d7b42333200ebedc20c97bf8dcf5.setContent(html_62ea5ceae4b50d5592ae9d4fd3e9580d);
+            
+        
+
+        circle_marker_087f5ccc20e771a67ea379b872343681.bindPopup(popup_7fe9d7b42333200ebedc20c97bf8dcf5)
+        ;
+
+        
+    
+    
+            circle_marker_087f5ccc20e771a67ea379b872343681.bindTooltip(
+                `<div>
+                     Jabaquara: 17 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_49658b3960362d5b1f2e707c2a30b535 = L.circleMarker(
+                [-23.712, -46.68],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.0, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_f6737c64e69b3339dcab8c9e6fae78b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c87f1fc77689b722f85a936ebbe222e9 = $(`<div id="html_c87f1fc77689b722f85a936ebbe222e9" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Grajaú</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>15</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.7120</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6800</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_f6737c64e69b3339dcab8c9e6fae78b4.setContent(html_c87f1fc77689b722f85a936ebbe222e9);
+            
+        
+
+        circle_marker_49658b3960362d5b1f2e707c2a30b535.bindPopup(popup_f6737c64e69b3339dcab8c9e6fae78b4)
+        ;
+
+        
+    
+    
+            circle_marker_49658b3960362d5b1f2e707c2a30b535.bindTooltip(
+                `<div>
+                     Grajaú: 15 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d82ec6aa4e45d62530deb3a1cbb7b8ea = L.circleMarker(
+                [-23.745, -46.72],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 16.200000000000003, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_c8ec174e40504ae3bb3adef2e3f8cd60 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e3b6de98e8568c41f7df6e590ef86a4f = $(`<div id="html_e3b6de98e8568c41f7df6e590ef86a4f" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Socorro</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>14</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.7450</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7200</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_c8ec174e40504ae3bb3adef2e3f8cd60.setContent(html_e3b6de98e8568c41f7df6e590ef86a4f);
+            
+        
+
+        circle_marker_d82ec6aa4e45d62530deb3a1cbb7b8ea.bindPopup(popup_c8ec174e40504ae3bb3adef2e3f8cd60)
+        ;
+
+        
+    
+    
+            circle_marker_d82ec6aa4e45d62530deb3a1cbb7b8ea.bindTooltip(
+                `<div>
+                     Socorro: 14 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dc7fa3447e6c942e0e4992a9d317be89 = L.circleMarker(
+                [-23.595, -46.645],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 16.200000000000003, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_a52269b2192b78be15bf2daa787c4962 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d4fea421e2e7f3f1b86febb2a1ab469 = $(`<div id="html_7d4fea421e2e7f3f1b86febb2a1ab469" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Aclimação</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>14</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5950</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6450</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_a52269b2192b78be15bf2daa787c4962.setContent(html_7d4fea421e2e7f3f1b86febb2a1ab469);
+            
+        
+
+        circle_marker_dc7fa3447e6c942e0e4992a9d317be89.bindPopup(popup_a52269b2192b78be15bf2daa787c4962)
+        ;
+
+        
+    
+    
+            circle_marker_dc7fa3447e6c942e0e4992a9d317be89.bindTooltip(
+                `<div>
+                     Aclimação: 14 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a46c10550e0ec424fbda557c6fd05e4f = L.circleMarker(
+                [-23.62, -46.655],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 17.8, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_316e0990594f09f034265c531923886b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bd6292a9e9a8a9197487315d4cf6d894 = $(`<div id="html_bd6292a9e9a8a9197487315d4cf6d894" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Vila Mariana</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>16</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6200</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6550</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_316e0990594f09f034265c531923886b.setContent(html_bd6292a9e9a8a9197487315d4cf6d894);
+            
+        
+
+        circle_marker_a46c10550e0ec424fbda557c6fd05e4f.bindPopup(popup_316e0990594f09f034265c531923886b)
+        ;
+
+        
+    
+    
+            circle_marker_a46c10550e0ec424fbda557c6fd05e4f.bindTooltip(
+                `<div>
+                     Vila Mariana: 16 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de1990b309f5b268c32cd02d98e2624a = L.circleMarker(
+                [-23.512, -46.51],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 18.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_705286489abcc234e0449136dc22d200 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b294d9abf6bf95a1735aa1324205f630 = $(`<div id="html_b294d9abf6bf95a1735aa1324205f630" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Imirim</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>17</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sul</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5120</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.5100</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_705286489abcc234e0449136dc22d200.setContent(html_b294d9abf6bf95a1735aa1324205f630);
+            
+        
+
+        circle_marker_de1990b309f5b268c32cd02d98e2624a.bindPopup(popup_705286489abcc234e0449136dc22d200)
+        ;
+
+        
+    
+    
+            circle_marker_de1990b309f5b268c32cd02d98e2624a.bindTooltip(
+                `<div>
+                     Imirim: 17 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_89937a1337ccbfc58e16198722d223f7 = L.circleMarker(
+                [-23.54, -46.605],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA07A", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 14.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_626e6ca68525f07994cf1384ddc15a8b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_68639a9f6246cc72e6dd29efc8f754a0 = $(`<div id="html_68639a9f6246cc72e6dd29efc8f754a0" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">República</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>12</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Centro</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.5400</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6050</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_626e6ca68525f07994cf1384ddc15a8b.setContent(html_68639a9f6246cc72e6dd29efc8f754a0);
+            
+        
+
+        circle_marker_89937a1337ccbfc58e16198722d223f7.bindPopup(popup_626e6ca68525f07994cf1384ddc15a8b)
+        ;
+
+        
+    
+    
+            circle_marker_89937a1337ccbfc58e16198722d223f7.bindTooltip(
+                `<div>
+                     República: 12 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_03c8933a7e7fb3178066e9b028d557a3 = L.circleMarker(
+                [-23.702, -46.635],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6347", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 15.4, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_2bc1b9ca625a0b674c4eb41f63b643f7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_71d8c51a8582c45dc1fa33c7e91ebd62 = $(`<div id="html_71d8c51a8582c45dc1fa33c7e91ebd62" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Ipiranga</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>13</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sudeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.7020</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6350</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_2bc1b9ca625a0b674c4eb41f63b643f7.setContent(html_71d8c51a8582c45dc1fa33c7e91ebd62);
+            
+        
+
+        circle_marker_03c8933a7e7fb3178066e9b028d557a3.bindPopup(popup_2bc1b9ca625a0b674c4eb41f63b643f7)
+        ;
+
+        
+    
+    
+            circle_marker_03c8933a7e7fb3178066e9b028d557a3.bindTooltip(
+                `<div>
+                     Ipiranga: 13 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f5b418bac4b895bb88b6e620bba513e2 = L.circleMarker(
+                [-23.68, -46.655],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA07A", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 14.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_ee863b4859ff5dfdd770e2d73dd5256a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e908fc2a57dba54718d8129cbc1e4cd = $(`<div id="html_9e908fc2a57dba54718d8129cbc1e4cd" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Saúde</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>12</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sudeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.6800</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6550</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_ee863b4859ff5dfdd770e2d73dd5256a.setContent(html_9e908fc2a57dba54718d8129cbc1e4cd);
+            
+        
+
+        circle_marker_f5b418bac4b895bb88b6e620bba513e2.bindPopup(popup_ee863b4859ff5dfdd770e2d73dd5256a)
+        ;
+
+        
+    
+    
+            circle_marker_f5b418bac4b895bb88b6e620bba513e2.bindTooltip(
+                `<div>
+                     Saúde: 12 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c29ce7a1d0ca042d6a1470508e4d6004 = L.circleMarker(
+                [-23.73, -46.7],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA07A", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 14.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_4968b38069fac201470cd7855d08612b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2a85dce91d2974ca41d8e1bcec212e21 = $(`<div id="html_2a85dce91d2974ca41d8e1bcec212e21" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Cupecê</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>12</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sudeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.7300</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.7000</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_4968b38069fac201470cd7855d08612b.setContent(html_2a85dce91d2974ca41d8e1bcec212e21);
+            
+        
+
+        circle_marker_c29ce7a1d0ca042d6a1470508e4d6004.bindPopup(popup_4968b38069fac201470cd7855d08612b)
+        ;
+
+        
+    
+    
+            circle_marker_c29ce7a1d0ca042d6a1470508e4d6004.bindTooltip(
+                `<div>
+                     Cupecê: 12 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b0c7f810adc7524151fc0552be245a65 = L.circleMarker(
+                [-23.71, -46.69],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFA07A", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1, "radius": 14.6, "stroke": true, "weight": 2}
+            ).addTo(map_133584918f435e4d1ea082c695b1e493);
+        
+    
+        var popup_bd0d1520497046839b2211dce0c61274 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2fb912958ff0d7925260167678cf3cc8 = $(`<div id="html_2fb912958ff0d7925260167678cf3cc8" style="width: 100.0%; height: 100.0%;">     <div style="font-family: Arial; font-size: 12px; width: 250px;">         <h4 style="margin-bottom: 8px; color: #333;">Cursino</h4>         <table style="width: 100%; border-collapse: collapse;">             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Óbitos:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;"><b>12</b></td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Região:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">Sudeste</td>             </tr>             <tr style="background: #f0f0f0;">                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Latitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-23.7100</td>             </tr>             <tr>                 <td style="padding: 4px; border: 1px solid #ddd;"><b>Longitude:</b></td>                 <td style="padding: 4px; border: 1px solid #ddd; text-align: right;">-46.6900</td>             </tr>         </table>     </div>     </div>`)[0];
+                popup_bd0d1520497046839b2211dce0c61274.setContent(html_2fb912958ff0d7925260167678cf3cc8);
+            
+        
+
+        circle_marker_b0c7f810adc7524151fc0552be245a65.bindPopup(popup_bd0d1520497046839b2211dce0c61274)
+        ;
+
+        
+    
+    
+            circle_marker_b0c7f810adc7524151fc0552be245a65.bindTooltip(
+                `<div>
+                     Cursino: 12 óbitos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
